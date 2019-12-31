@@ -4,13 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array; 
 
-// Assignment 6 
-// Long Nguyen (V00914145)
-public class path{
+
+public class Path{
     private Location start;
     private Location end;
     private boolean[][] box;
-    public path(String filepath){
+    public Path(String filepath){
         
         try{
         // change input text file here
