@@ -8,7 +8,7 @@ import java.lang.reflect.Array;
 public class Path{
     private Location start;
     private Location end;
-    private boolean[][] box;
+    private Location[][] box;
     public Path(String filepath){
         
         try{
@@ -16,7 +16,7 @@ public class Path{
             Scanner input = new Scanner(new File(filepath));
             int size = input.nextInt();
             
-            boolean[][] box = new boolean[size][size];
+            Location[][] box = new Location[size][size];
             input.nextLine();
 
             // Backtracking algorithm
@@ -24,13 +24,22 @@ public class Path{
                 String str = input.nextLine();
                 for (int j=0; j < size;j++){
                     // food
-                    box[i][j] = str.charAt(j) == '#';
-                    if (str.charAt(j) == 'A'){
+                    if (str.charAt(j) == '#'){
+                        box[i][j] = new Location(i, j, 0);
+                    } else if (str.charAt(j) == 'A'){
                         start = new Location(i, j); 
-                    }
-                    if (str.charAt(j) == 'B'){
+                    } else if (str.charAt(j) == 'B'){
                         end = new Location(i, j);
+                    } else {
+                        // checking the format of the digit
+                        if (Character.digit(str.charAt(j), 10) == -1){
+                            break;
+                        } else {
+                            int digit = str.charAt(j) - '0';
+                        }
+                        box[i][j] = new Location(i,j,digit);
                     }
+
                 }
             } 
             
@@ -52,7 +61,7 @@ public class Path{
     public int getNumCols() {
         return box[0].length;
     }
-    public static boolean isWall(int row, int col,boolean[][] box) {
+    public static boolean isWall(int row, int col,Location[][] box) {
         if (row < 0 || box.length <= row) {
             return true;
         }
