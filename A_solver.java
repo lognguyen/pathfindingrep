@@ -1,8 +1,13 @@
 import java.util.*;
+
+import javax.xml.stream.events.EndDocument;
+
 import java.lang.Math.abs;
 
 
 public class A_Solver {
+    // default value of D used in heurestic
+    private int Dvalue = 1;
     public static String findPath(Path maze) {
         String result = "";
         
@@ -51,7 +56,7 @@ public class A_Solver {
     }
     
     // check all 4 possible directions
-    public static boolean up(Location sth,Maze moar,boolean[][] arr){
+    public static boolean up(Location sth,Path moar,boolean[][] arr){
         // try "up"
         if (sth.getRow()< moar.getNumRows() && sth.getRow()>0){
             if (moar.isWall(sth.getRow()-1, sth.getCol()) == false && arr[sth.getRow()-1][sth.getCol()]==true) {
@@ -60,7 +65,7 @@ public class A_Solver {
         }
         return false;
     }
-    public static boolean down(Location sth,Maze moar,boolean[][] arr){
+    public static boolean down(Location sth,Path moar,boolean[][] arr){
         // try "down"
         if (sth.getRow()+1<moar.getNumRows() && sth.getRow()>-1){
             if (moar.isWall(sth.getRow()+1, sth.getCol()) == false && arr[sth.getRow()+1][sth.getCol()]==true) {
@@ -69,7 +74,7 @@ public class A_Solver {
         }   
         return false;
     }
-    public static boolean left(Location sth,Maze moar,boolean[][] arr){
+    public static boolean left(Location sth,Path moar,boolean[][] arr){
         // try "left"
         if (sth.getCol()<moar.getNumCols() && sth.getCol()>0){
             if (moar.isWall(sth.getRow(), sth.getCol()-1) == false && arr[sth.getRow()][sth.getCol()-1]==true) {
@@ -78,7 +83,7 @@ public class A_Solver {
         }
         return false;
     }
-    public static boolean right(Location sth,Maze moar,boolean[][] arr){
+    public static boolean right(Location sth,Path moar,boolean[][] arr){
         // try "right"
         if (sth.getCol()+1<moar.getNumCols() && sth.getCol()>-1){
             if (moar.isWall(sth.getRow(), sth.getCol()+1) == false && arr[sth.getRow()][sth.getCol()+1]==true) {
@@ -94,12 +99,20 @@ public class A_Solver {
             }
         }
     }
-    public manhanttanheu(Location node){
 
+    // Heuristics
+    public int manhanttanheu(Location node, Path maze){
+        // D is the lowest cost between adjecent blocks 
+        // check around the node to find the lowest
+        dx = abs(node.getRow() - maze.Exit().getRow());
+        dy = abs(node.getCol() - maze.Exit().getCol());
+        return D;
     }
 
 
-
+    public static int checkingD(Location node, Path maze,boolean[][]arr){
+        ;
+    }
 
     public static String reverseStringStack(Stack<Location> stack){
         // use another stack to reverse the original stack
