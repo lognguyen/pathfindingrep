@@ -1,5 +1,5 @@
-import java.util.*;
 
+import java.util.Stack;
 import javax.xml.stream.events.EndDocument;
 
 import java.lang.Math.abs;
@@ -8,6 +8,8 @@ import java.lang.Math.abs;
 public class A_Solver {
     // default value of D used in heurestic
     private int Dvalue = 1;
+    private int D2value = 1; //default Chebyshev distance
+
     public static String findPath(Path maze) {
         String result = "";
         
@@ -101,15 +103,25 @@ public class A_Solver {
     }
 
     // Heuristics
+
+    // Manhanttan distance -- 4 directions
     public int manhanttanheu(Location node, Path maze){
         // D is the lowest cost between adjecent blocks 
         // check around the node to find the lowest
-        dx = abs(node.getRow() - maze.Exit().getRow());
-        dy = abs(node.getCol() - maze.Exit().getCol());
-        return D;
+        int dx = abs(node.getRow() - maze.Exit().getRow());
+        int dy = abs(node.getCol() - maze.Exit().getCol());
+        return Dvalue * (dx+dy);
+    }
+
+    public int diagonalheu(Location node, Path maze){
+        int dx = abs(node.getRow() - maze.Exit().getRow());
+        int dy = abs(node.getCol() - maze.Exit().getCol());
+        return Dvalue * (dx+dy) + (D2value - 2 * Dvalue) * Math.min(dx, dy);
     }
 
 
+
+    // min cost between two blocks
     public static int checkingD(Location node, Path maze,boolean[][]arr){
         ;
     }
