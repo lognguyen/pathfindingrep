@@ -25,11 +25,14 @@ public class Path{
                 for (int j=0; j < size;j++){
                     // food
                     if (str.charAt(j) == '#'){
-                        box[i][j] = new Location(i, j, 0);
+                        // blockage
+                        box[i][j] = new Location(i, j, 0,true);
                     } else if (str.charAt(j) == 'A'){
-                        start = new Location(i, j); 
+                        // start
+                        start = new Location(i, j,-1,false); 
                     } else if (str.charAt(j) == 'B'){
-                        end = new Location(i, j);
+                        // end
+                        end = new Location(i, j,-2,false);
                     } else {
                         // checking the format of the digit
                         if (Character.digit(str.charAt(j), 10) == -1){
@@ -37,7 +40,7 @@ public class Path{
                         } else {
                             int digit = str.charAt(j) - '0';
                         }
-                        box[i][j] = new Location(i,j,digit);
+                        box[i][j] = new Location(i,j,digit,false);
                     }
 
                 }
@@ -61,7 +64,7 @@ public class Path{
     public int getNumCols() {
         return box[0].length;
     }
-    public static boolean isWall(int row, int col,Location[][] box) {
+    public boolean isWall(int row, int col) {
         if (row < 0 || box.length <= row) {
             return true;
         }

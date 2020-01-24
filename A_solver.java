@@ -15,7 +15,7 @@ public class A_Solver {
         
 
         Stack<Location> bta = new Stack<Location>();
-        boolean[][] visited = new boolean[maze.getNumRows()][maze.getNumCols()];
+        Location[][] visited = new Location[maze.getNumRows()][maze.getNumCols()];
         makethearrayunvisited(visited);
         // assign all elements to true
 
@@ -67,6 +67,8 @@ public class A_Solver {
         }
         return false;
     }
+
+
     public static boolean down(Location sth,Path moar,boolean[][] arr){
         // try "down"
         if (sth.getRow()+1<moar.getNumRows() && sth.getRow()>-1){
@@ -94,7 +96,7 @@ public class A_Solver {
         }
         return false;
     }
-    public static void makethearrayunvisited(boolean[][] arr){
+    public static void makethearrayunvisited(Location[][] arr){
         for (int i=0;i<arr.length;i++){
             for (int j=0;j<arr[i].length;j++){
                 arr[i][j] = true;
@@ -113,17 +115,26 @@ public class A_Solver {
         return Dvalue * (dx+dy);
     }
 
+
+    // Diagonal distance -- 8 directions -- future use
     public int diagonalheu(Location node, Path maze){
         int dx = abs(node.getRow() - maze.Exit().getRow());
         int dy = abs(node.getCol() - maze.Exit().getCol());
         return Dvalue * (dx+dy) + (D2value - 2 * Dvalue) * Math.min(dx, dy);
     }
 
+    // Euclidean distance 
+    public int Euclideanheu(Location node, Path maze){
+        int dx = abs(node.getRow() - maze.Exit().getRow());
+        int dy = abs(node.getCol() - maze.Exit().getCol());
+        return Dvalue;
+    }
+
 
 
     // min cost between two blocks
-    public static int checkingD(Location node, Path maze,boolean[][]arr){
-        ;
+    public static void checkingD(Location node, Path maze,boolean[][]arr){
+        Location tmpnode = new Location(node.getRow(), node.getCol(), value, visited);
     }
 
     public static String reverseStringStack(Stack<Location> stack){

@@ -4,6 +4,7 @@ class Location{
     private int column;
     private boolean isWall;
     private int value;
+    private boolean visited;
 
     Location(int row, int column){
         this.row = row;
@@ -14,10 +15,10 @@ class Location{
         this.column = column;
         this.value = value;
     }
-    Location(int row, int column,int value,boolean isWall) {
+    Location(int row, int column,int value,boolean visited) {
         this.row = row;
         this.column = column;
-        this.isWall = isWall;
+        this.visited = visited;
         this.value = value;
     }
     public boolean equals(Location node){
@@ -38,5 +39,8 @@ class Location{
     }
     public int getValue(){
         return value;
+    }
+    public boolean isVisited(){
+        return visited;
     }
 }
